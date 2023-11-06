@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <!-- LOOKED UP -->
+    <div class="container">
+        <div class="section">
+            <h2>Your stocks</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Shares</th>
+                        <th>Price</th>
+                        <th>TOTAL</th>
+                        <th>Buy more</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TODO: Loop through the database entries to display them in this table -->
+                    {% for transaction in stocks %}
+                        <tr>
+                            <td>{{ transaction["symbol"] }}</td>
+                            <td>{{ transaction["name"] }}</td>
+                            <td>{{ transaction["shares"] }}</td>
+                            <td>{{ transaction["price"] | usd }}</td>
+                            <td class="fw bold">{{ transaction["total"] | usd }}</td>
+                            <td>
+                                <form method="post" action="/buy">
+                                    <input autocomplete=off name="shares" type="number" min="1" placeholder="Amount">
+                                    <input name="symbol" type="hidden" value="{{ transaction['symbol'] }}">
+                                    <input type="submit" value="Buy">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">CASH</td>
+                        <td class="border-0">{{ cash | usd }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 fw-bold text-end    " colspan="4">GRAND TOTAL</td>
+                        <td class="border-0 w-bold">{{ total | usd }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

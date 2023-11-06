@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <!-- LOOKED UP -->
+    <div class="container">
+        <div class="section">
+            <h2>Search results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Symbol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TODO: Loop through the database entries to display them in this table -->
+                    <tr>
+                        <td>{{ stockquote.name }}</td>
+                        <td>{{ stockquote.price | usd }}</td>
+                        <td>{{ stockquote.symbol }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
